@@ -29,8 +29,8 @@ var Clarity = function () {
     this.jump_switch    = 0;
     
     this.viewport = {
-        x: 200,
-        y: 200
+        x: 100,
+        y: 100
     };
     
     this.camera = {
@@ -41,7 +41,8 @@ var Clarity = function () {
     this.key = {
         left: false,
         right: false,
-        up: false
+        up: false,
+        space: false
     };
 
     this.player = {
@@ -83,7 +84,6 @@ Clarity.prototype.set_viewport = function (x, y) {
 Clarity.prototype.keydown = function (e) {
 
     var _this = this;
-
     switch (e.keyCode) {
     case 37:
         _this.key.left = true;
@@ -93,6 +93,9 @@ Clarity.prototype.keydown = function (e) {
         break;
     case 39:
         _this.key.right = true;
+        break;
+    case 32:
+        _this.key.space = true;
         break;
     }
 };
@@ -110,6 +113,9 @@ Clarity.prototype.keyup = function (e) {
         break;
     case 39:
         _this.key.right = false;
+        break;
+    case 32:
+        _this.key.space = false;
         break;
     }
 };
@@ -428,6 +434,10 @@ Clarity.prototype.update_player = function () {
 
         if (this.player.vel.x < this.current_map.vel_limit.x)
             this.player.vel.x += this.current_map.movement_speed.left;
+    }
+
+    if (this.key.space) {
+        //grappling hook..
     }
 
     this.move_player();
